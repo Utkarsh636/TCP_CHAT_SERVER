@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include <cstdlib>
 
 #include <libwebsockets.h>
 
@@ -343,7 +344,10 @@ int main() {
 
     struct lws_context_creation_info info{};
 
-    info.port = 8081;
+    const char* port_env = std::getenv("PORT");
+    int port = port_env ? std::atoi(port_env) : 8081;
+
+    info.port = port;
     info.protocols = protocols;
 
 
